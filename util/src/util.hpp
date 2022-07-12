@@ -6,8 +6,8 @@
  */
 #pragma once
 
-#include <string>
 #include <sstream>
+#include <string>
 
 #include "logger.hpp"
 #include "alias.hpp"
