@@ -32,4 +32,5 @@ public:
 private:
     SPoller poller_;
 };
+
 } // namespace event
