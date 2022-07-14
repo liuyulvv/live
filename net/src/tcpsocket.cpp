@@ -56,8 +56,10 @@ void TCPSocket::Connect(Address &address) {
 
 int TCPSocket::Accept(Address &address) {
     assert(sockfd_ != -1);
-    assert(accept(sockfd_, reinterpret_cast<sockaddr*>(&address.sockaddr), &address.sockaddr_len) != -1);
+    auto ret = accept(sockfd_, reinterpret_cast<sockaddr*>(&address.sockaddr), &address.sockaddr_len);
+    assert(ret != -1);
     address.Update();
+    return ret;
 }
 
 void TCPSocket::SetNonBlock() {
