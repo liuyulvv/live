@@ -34,25 +34,12 @@ public:
     TCPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port);
     virtual ~TCPServer() = default;
 
-public:
-    void SetReadCallback(std::function<void(const STCPConnection &connection)> callback);
-    void SetCloseCallback(std::function<void(const STCPConnection &connection)> callback);
-
-protected:
-    void HandleRead(const STCPConnection &connection);
-    void HandleClose(const STCPConnection &connection);
-    void HandleNewConnection(int sockfd, const Address &address);
-
 protected:
     int threadpoolSize_ = 0;
     SEventloop eventloop_;
     SThreadPool threadpool_;
     STCPAcceptor acceptor_;
-    util::Map<int, STCPConnection> connection_;
     std::vector<SEventloop> subEventloops_;
-
-    std::function<void(const STCPConnection &connection)> readCallback_;
-    std::function<void(const STCPConnection &connection)> closeCallback_;
 };
 
 } // namespace net
