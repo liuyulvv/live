@@ -49,8 +49,6 @@ public:
     const std::string &GetIp() const;
     const unsigned GetPort() const;
     const STCPChannel &GetChannel() const;
-
-protected:
     void HandleRead();
     void HandleClose(const STCPConnection &connection);
 

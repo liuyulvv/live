@@ -6,7 +6,6 @@
  */
 
 #include "tcpchannel.hpp"
-#include "util.hpp"
 
 #include <fcntl.h>
 #ifdef __APPLE__
@@ -29,7 +28,6 @@ void TCPChannel::HandleEvent() {
     #ifdef __APPLE__
     if (readyEvents_ & EVFILT_READ) // 可读事件
     {
-        util::Info("可读事件");
         readCallback_();
     }
     #endif
