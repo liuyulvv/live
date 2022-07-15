@@ -23,10 +23,11 @@ public:
     std::vector<char> GetContent();
     std::vector<char> GetContent(int size);
     void Push(const std::string &content);
-    void Push(const char *content, int size);
-    void Push(const char &content);
+    void Push(const char* const content, int size);
+    void Push(char content);
     void Push(const std::vector<char> &content);
     bool Empty() const;
+    int Size() const;
 
 private:
     std::queue<char> queue_;

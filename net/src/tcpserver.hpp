@@ -31,7 +31,7 @@ public:
     using SThreadPool = std::shared_ptr<util::ThreadPool>;
 
 public:
-    TCPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port);
+    TCPServer(const SEventloop &eventloop, const std::string &ip, unsigned port);
     virtual ~TCPServer() = default;
 
 protected:

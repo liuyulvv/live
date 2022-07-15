@@ -17,7 +17,7 @@ Address::Address() : sockaddr_len(sizeof(sockaddr)) {
     memset(&sockaddr, 0, sockaddr_len);
 }
 
-Address::Address(const std::string &ip, const unsigned &port) : Address() {
+Address::Address(const std::string &ip, unsigned port) : Address() {
     sockaddr.sin_family = AF_INET;
     sockaddr.sin_addr.s_addr = inet_addr(ip.c_str());
     sockaddr.sin_port = htons(port);

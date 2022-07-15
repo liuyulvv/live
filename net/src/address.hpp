@@ -15,7 +15,7 @@ namespace net {
 class Address {
 public:
     Address();
-    Address(const std::string &ip, const unsigned &port);
+    Address(const std::string &ip, unsigned port);
     ~Address() = default;
 
 public:

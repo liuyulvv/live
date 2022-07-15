@@ -10,7 +10,7 @@
 namespace net
 {
 
-TCPServer::TCPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port) {
+TCPServer::TCPServer(const SEventloop &eventloop, const std::string &ip, unsigned port) {
     eventloop_ = eventloop;
     threadpool_ = std::make_shared<util::ThreadPool>();
     threadpoolSize_ = std::thread::hardware_concurrency();

@@ -41,13 +41,13 @@ void Buffer::Push(const std::string &content) {
     }
 }
 
-void Buffer::Push(const char *content, int size) {
+void Buffer::Push(const char* const content, int size) {
     for (int i = 0; i < size; ++i) {
         queue_.push(content[i]);
     }
 }
 
-void Buffer::Push(const char &content) {
+void Buffer::Push(char content) {
     queue_.push(content);
 }
 
@@ -59,6 +59,10 @@ void Buffer::Push(const std::vector<char> &content) {
 
 bool Buffer::Empty() const {
     return queue_.empty();
+}
+
+int Buffer::Size() const {
+    return queue_.size();
 }
 
 } // namespace util

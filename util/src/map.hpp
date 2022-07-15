@@ -29,6 +29,11 @@ public:
         map_.erase(key);
     }
 
+    T2& Get(const T1 &key) {
+        std::lock_guard<std::mutex> locker(mutex_);
+        return map_[key];
+    }
+
 private:
     std::map<T1, T2> map_;
     std::mutex mutex_;

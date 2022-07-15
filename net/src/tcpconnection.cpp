@@ -50,7 +50,7 @@ void TCPConnection::Write(const std::string &content) {
     writeBuffer_->Push(content);
 }
 
-void TCPConnection::Write(const char &content) {
+void TCPConnection::Write(char content) {
     writeBuffer_->Push(content);
 }
 
@@ -58,7 +58,7 @@ void TCPConnection::Write(const std::vector<char> &content) {
     writeBuffer_->Push(content);
 }
 
-void TCPConnection::Write(const int &size, char content) {
+void TCPConnection::Write(int size, char content) {
     for (int i = 0; i < size; ++i)
     {
         writeBuffer_->Push(content);
@@ -112,6 +112,14 @@ void TCPConnection::HandleRead() {
 void TCPConnection::HandleClose(const STCPConnection &connection) {
     closeCallback_(connection);
     eventloop_->RemoveChannel(connection->GetChannel());
+}
+
+bool TCPConnection::HasContent() const {
+    return !readBuffer_->Empty();
+}
+
+bool TCPConnection::HasContent(int size) const {
+    return readBuffer_->Size() >= size;
 }
 
 } // namespace net

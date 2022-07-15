@@ -41,9 +41,9 @@ public:
     std::vector<char> Recv();
     std::vector<char> Recv(int size);
     void Write(const std::string &content);
-    void Write(const char &content);
+    void Write(char content);
     void Write(const std::vector<char> &content);
-    void Write(const int &size, char content);
+    void Write(int size, char content);
     void Send();
     void SetAddress(const Address &address);
     const std::string &GetIp() const;
@@ -51,6 +51,8 @@ public:
     const STCPChannel &GetChannel() const;
     void HandleRead();
     void HandleClose(const STCPConnection &connection);
+    bool HasContent() const;
+    bool HasContent(int size) const;
 
 protected:
     SEventloop eventloop_;
