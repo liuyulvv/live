@@ -7,24 +7,23 @@
 
 #pragma once
 
+#include "eventloop.hpp"
+#include "tcpconnection.hpp"
+#include "tcpserver.hpp"
 #include <memory>
 
-#include "eventloop.hpp"
-#include "tcpserver.hpp"
-#include "tcpconnection.hpp"
+namespace app {
 
-namespace app{
+class HTTPServer : public net::TCPServer {
+    public:
+        using SEventloop = std::shared_ptr<event::Eventloop>;
+        using STCPConnection = std::shared_ptr<net::TCPConnection>;
 
-class HTTPServer final : public net::TCPServer {
-public:
-    using SEventloop = std::shared_ptr<event::Eventloop>;
+        HTTPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port);
+        ~HTTPServer() override = default;
 
-public:
-    HTTPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port);
-    ~HTTPServer() = default;
-
-private:
-    void HandleRead(const STCPConnection &connection);
+    private:
+        util::Map<int, STCPConnection> connection_;
 };
 
-} // namespace app
+}  // namespace app
