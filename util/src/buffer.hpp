@@ -12,25 +12,24 @@
 #include <vector>
 
 namespace util {
-    
+
 class Buffer final {
-public:
-    Buffer() = default;
-    ~Buffer() = default;
+    public:
+        Buffer() = default;
+        ~Buffer() = default;
 
-public:
-    char GetChar();
-    std::vector<char> GetContent();
-    std::vector<char> GetContent(int size);
-    void Push(const std::string &content);
-    void Push(const char* const content, int size);
-    void Push(char content);
-    void Push(const std::vector<char> &content);
-    bool Empty() const;
-    int Size() const;
+        [[nodiscard]] char GetChar();
+        [[nodiscard]] std::vector<char> GetContent();
+        [[nodiscard]] std::vector<char> GetContent(int size);
+        void Push(const std::string& content);
+        void Push(const char* content, int size);
+        void Push(char content);
+        void Push(const std::vector<char>& content);
+        [[nodiscard]] bool Empty() const;
+        [[nodiscard]] int Size() const;
 
-private:
-    std::queue<char> queue_;
+    private:
+        std::queue<char> queue_;
 };
 
-} // namespace util
+}  // namespace util

@@ -7,8 +7,7 @@
 
 #include "eventloop.hpp"
 
-namespace event
-{
+namespace event {
 
 Eventloop::Eventloop() {
     poller_ = std::make_shared<Poller>();
@@ -17,19 +16,18 @@ Eventloop::Eventloop() {
 void Eventloop::Loop() {
     while (true) {
         auto activeChannels = poller_->Poll();
-        for (auto &channel : activeChannels)
-        {
+        for (auto& channel : activeChannels) {
             channel->HandleEvent();
         }
     }
 }
 
-void Eventloop::UpdateChannel(const STCPChannel &channel) {
+void Eventloop::UpdateChannel(const STCPChannel& channel) {
     poller_->UpdateTCPChannel(channel.get());
 }
 
-void Eventloop::RemoveChannel(const STCPChannel &channel) {
+void Eventloop::RemoveChannel(const STCPChannel& channel) {
     poller_->RemoveTCPChannel(channel.get());
 }
 
-} // namespace event
+}  // namespace event

@@ -11,29 +11,25 @@
 #ifdef __APPLE__
 #include <sys/event.h>
 #endif
-
 #include "tcpchannel.hpp"
 
-namespace event
-{
+namespace event {
 
 class Poller {
-public:
-    Poller();
-    ~Poller();
+    public:
+        Poller();
+        ~Poller();
 
-public:
-    int GetPollerFd() const;
-    void UpdateTCPChannel(net::TCPChannel *channel);
-    void RemoveTCPChannel(net::TCPChannel *channel);
-    std::vector<net::TCPChannel *> Poll();
+        [[nodiscard]] int GetPollerFd() const;
+        void UpdateTCPChannel(net::TCPChannel* channel) const;
+        void RemoveTCPChannel(net::TCPChannel* channel) const;
+        [[nodiscard]] std::vector<net::TCPChannel*> Poll();
 
-private:
-    int fd_ = -1;
+    private:
+        int fd_ = -1;
 #ifdef __APPLE__
-    struct kevent *event_ = nullptr;
+        struct kevent* event_ = nullptr;
 #endif
-
 };
 
-} // namespace event
+}  // namespace event

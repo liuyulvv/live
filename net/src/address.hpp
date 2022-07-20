@@ -13,23 +13,21 @@
 namespace net {
 
 class Address {
-public:
-    Address();
-    Address(const std::string &ip, unsigned port);
-    ~Address() = default;
+    public:
+        Address();
+        Address(const std::string& ip, unsigned port);
+        ~Address() = default;
 
-public:
-    void Update();
-    const std::string& GetIP() const;
-    unsigned GetPort() const;
+        void Update();
+        [[nodiscard]] const std::string& GetIP() const;
+        [[nodiscard]] unsigned GetPort() const;
 
-public:
-    sockaddr_in sockaddr;
-    socklen_t sockaddr_len;
+        sockaddr_in sockaddr;
+        socklen_t sockaddr_len;
 
-private:
-    std::string ip_;
-    unsigned port_;
+    private:
+        std::string ip_;
+        unsigned port_;
 };
 
 }  // namespace net

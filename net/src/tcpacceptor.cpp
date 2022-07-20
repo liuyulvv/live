@@ -7,10 +7,9 @@
 
 #include "tcpacceptor.hpp"
 
-namespace net
-{
+namespace net {
 
-TCPAcceptor::TCPAcceptor(const SEventloop &eventloop, const std::string &ip, unsigned port) {
+TCPAcceptor::TCPAcceptor(const SEventloop& eventloop, const std::string& ip, unsigned port) {
     eventloop_ = eventloop;
     Address address(ip, port);
     socket_ = std::make_shared<TCPSocket>();
@@ -21,10 +20,9 @@ TCPAcceptor::TCPAcceptor(const SEventloop &eventloop, const std::string &ip, uns
     channel_->EnableRead();
 }
 
-void TCPAcceptor::SetNewConnectionCallback(const std::function<void(int sockfd, const Address &address)> &callback) {
+void TCPAcceptor::SetNewConnectionCallback(const std::function<void(int sockfd, const Address& address)>& callback) {
     newConnectionCallback_ = callback;
 }
-
 
 void TCPAcceptor::HandelRead() {
     Address address;
@@ -33,4 +31,4 @@ void TCPAcceptor::HandelRead() {
     newConnectionCallback_(sockfd, address);
 }
 
-} // namespace net
+}  // namespace net

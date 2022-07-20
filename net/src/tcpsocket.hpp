@@ -9,25 +9,23 @@
 
 #include "address.hpp"
 
-namespace net
-{
+namespace net {
 
 class TCPSocket {
-public:
-    TCPSocket();
-    explicit TCPSocket(int sockfd);
-    ~TCPSocket();
+    public:
+        TCPSocket();
+        explicit TCPSocket(int sockfd);
+        ~TCPSocket();
 
-public:
-    int GetSockfd() const;
-    void Bind(const Address &address);
-    void Listen();
-    void Connect(Address &address);
-    int Accept(Address &address);
-    void SetNonBlock();
+        [[nodiscard]] int GetSockfd() const;
+        void Bind(const Address& address) const;
+        void Listen() const;
+        void Connect(Address& address) const;
+        [[nodiscard]] int Accept(Address& address) const;
+        void SetNonBlock() const;
 
-private:
-    int sockfd_ = -1;
+    private:
+        int sockfd_ = -1;
 };
-    
-} // namespace net
+
+}  // namespace net

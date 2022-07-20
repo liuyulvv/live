@@ -6,7 +6,6 @@
  */
 
 #include "poller.hpp"
-
 #ifdef __APPLE__
 #include <sys/event.h>
 #endif
@@ -15,7 +14,7 @@
 namespace event {
 
 namespace {
-    const int MAX_EVENT = 1024;
+const int MAX_EVENT = 1024;
 }
 
 Poller::Poller() {
@@ -36,14 +35,13 @@ int Poller::GetPollerFd() const {
     return fd_;
 }
 
-void Poller::UpdateTCPChannel(net::TCPChannel *channel) {
+void Poller::UpdateTCPChannel(net::TCPChannel* channel) const {
 #ifdef __APPLE__
     struct kevent event[2];
     memset(&event, 0, sizeof(event));
     int n = 0;
     int op = EV_ADD | EV_ENABLE;
-    if (channel->IsEt())
-    {
+    if (channel->IsEt()) {
         op |= EV_CLEAR;
     }
     EV_SET(&event[n++], channel->GetFd(), channel->GetListenEvents(), op, 0, 0, channel);
@@ -52,7 +50,7 @@ void Poller::UpdateTCPChannel(net::TCPChannel *channel) {
 #endif
 }
 
-void Poller::RemoveTCPChannel(net::TCPChannel *channel) {
+void Poller::RemoveTCPChannel(net::TCPChannel* channel) const {
 #ifdef __APPLE__
     struct kevent event[2];
     int n = 0;
@@ -62,13 +60,12 @@ void Poller::RemoveTCPChannel(net::TCPChannel *channel) {
 #endif
 }
 
-std::vector<net::TCPChannel *> Poller::Poll() {
-    std::vector<net::TCPChannel *> activeChannels;
+std::vector<net::TCPChannel*> Poller::Poll() {
+    std::vector<net::TCPChannel*> activeChannels;
 #ifdef __APPLE__
     auto readyNums = kevent(fd_, nullptr, 0, event_, MAX_EVENT, nullptr);
-    for (int i = 0; i < readyNums; ++i)
-    {
-        auto activeChannel = reinterpret_cast<net::TCPChannel *>(event_[i].udata);
+    for (int i = 0; i < readyNums; ++i) {
+        auto* activeChannel = reinterpret_cast<net::TCPChannel*>(event_[i].udata);
         activeChannel->SetReadyEvents(event_[i].filter);
         activeChannels.push_back(activeChannel);
     }
@@ -76,4 +73,4 @@ std::vector<net::TCPChannel *> Poller::Poll() {
 #endif
 }
 
-} // namespace event
+}  // namespace event

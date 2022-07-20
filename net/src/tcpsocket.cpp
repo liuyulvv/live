@@ -5,20 +5,18 @@
  * @date 2022-07-12
  */
 
+#include "tcpsocket.hpp"
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
 
-#include "tcpsocket.hpp"
-
-namespace net
-{
+namespace net {
 
 namespace {
-    const int MAX_LISTEN = 1024;
+const int MAX_LISTEN = 1024;
 }
-    
+
 TCPSocket::TCPSocket() {
     sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
     assert(sockfd_ != -1);
@@ -39,22 +37,22 @@ int TCPSocket::GetSockfd() const {
     return sockfd_;
 }
 
-void TCPSocket::Bind(const Address &address) {
+void TCPSocket::Bind(const Address& address) const {
     assert(sockfd_ != -1);
     assert(bind(sockfd_, reinterpret_cast<const sockaddr*>(&address.sockaddr), address.sockaddr_len) != -1);
 }
 
-void TCPSocket::Listen() {
+void TCPSocket::Listen() const {
     assert(sockfd_ != -1);
     assert(listen(sockfd_, MAX_LISTEN) != -1);
 }
 
-void TCPSocket::Connect(Address &address) {
+void TCPSocket::Connect(Address& address) const {
     assert(sockfd_ != -1);
     assert(connect(sockfd_, reinterpret_cast<sockaddr*>(&address.sockaddr), address.sockaddr_len) != -1);
 }
 
-int TCPSocket::Accept(Address &address) {
+int TCPSocket::Accept(Address& address) const {
     assert(sockfd_ != -1);
     auto ret = accept(sockfd_, reinterpret_cast<sockaddr*>(&address.sockaddr), &address.sockaddr_len);
     assert(ret != -1);
@@ -62,9 +60,9 @@ int TCPSocket::Accept(Address &address) {
     return ret;
 }
 
-void TCPSocket::SetNonBlock() {
+void TCPSocket::SetNonBlock() const {
     assert(sockfd_ != -1);
     assert(fcntl(sockfd_, F_SETFL, fcntl(sockfd_, F_GETFL) | O_NONBLOCK) == -1);
 }
 
-} // namespace net
+}  // namespace net

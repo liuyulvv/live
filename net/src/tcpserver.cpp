@@ -7,10 +7,9 @@
 
 #include "tcpserver.hpp"
 
-namespace net
-{
+namespace net {
 
-TCPServer::TCPServer(const SEventloop &eventloop, const std::string &ip, unsigned port) {
+TCPServer::TCPServer(const SEventloop& eventloop, const std::string& ip, unsigned port) {
     eventloop_ = eventloop;
     threadpool_ = std::make_shared<util::ThreadPool>();
     threadpoolSize_ = std::thread::hardware_concurrency();
@@ -18,10 +17,11 @@ TCPServer::TCPServer(const SEventloop &eventloop, const std::string &ip, unsigne
         subEventloops_.push_back(std::make_shared<event::Eventloop>());
     }
     for (int i = 0; i < threadpoolSize_; ++i) {
-        auto subLoop = std::bind(&event::Eventloop::Loop, subEventloops_[i]);
-        threadpool_->Add(subLoop);
+        threadpool_->Add([this, i]() {
+            subEventloops_[i]->Loop();
+        });
     }
     acceptor_ = std::make_shared<net::TCPAcceptor>(eventloop_, ip, port);
 }
 
-} // namespace net
+}  // namespace net

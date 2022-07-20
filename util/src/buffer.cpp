@@ -35,13 +35,13 @@ std::vector<char> Buffer::GetContent(int size) {
     return content;
 }
 
-void Buffer::Push(const std::string &content) {
-    for (const auto &c : content) {
+void Buffer::Push(const std::string& content) {
+    for (const auto& c : content) {
         queue_.push(c);
     }
 }
 
-void Buffer::Push(const char* const content, int size) {
+void Buffer::Push(const char* content, int size) {
     for (int i = 0; i < size; ++i) {
         queue_.push(content[i]);
     }
@@ -51,8 +51,8 @@ void Buffer::Push(char content) {
     queue_.push(content);
 }
 
-void Buffer::Push(const std::vector<char> &content) {
-    for (const auto &c : content) {
+void Buffer::Push(const std::vector<char>& content) {
+    for (const auto& c : content) {
         queue_.push(c);
     }
 }
@@ -65,4 +65,4 @@ int Buffer::Size() const {
     return queue_.size();
 }
 
-} // namespace util
+}  // namespace util
