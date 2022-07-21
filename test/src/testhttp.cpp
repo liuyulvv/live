@@ -5,14 +5,19 @@
  * @date 2022-07-14
  */
 
-#include "util.hpp"
 #include "eventloop.hpp"
 #include "httpserver.hpp"
+#include "util.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
+    assert(argc >= 1);
     util::GetLogger(argv[0]);
-    auto event = std::make_shared<event::Eventloop>();
-    auto httpServer = std::make_shared<app::HTTPServer>(event, "0.0.0.0", 8000);
-    event->Loop();
+    try {
+        auto event = std::make_shared<event::Eventloop>();
+        auto httpServer = std::make_shared<app::HTTPServer>(event, "0.0.0.0", 8080);
+        event->Loop();
+    } catch (const std::exception& e) {
+        util::Error(e.what());
+    }
     return 0;
-} 
+}

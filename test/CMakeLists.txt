@@ -11,6 +11,7 @@ include_directories(
     ../net/src
     ../util/src
     ../app/src
+    ../rtmp/src
 )
 
 file(GLOB tests RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -23,5 +24,6 @@ foreach(mainfile IN LISTS tests)
         sub::net
         sub::util
         sub::app
+        sub::rtmp
     )
 endforeach()
