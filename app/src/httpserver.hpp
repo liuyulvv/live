@@ -19,7 +19,7 @@ class HTTPServer : public net::TCPServer {
         using SEventloop = std::shared_ptr<event::Eventloop>;
         using STCPConnection = std::shared_ptr<net::TCPConnection>;
 
-        HTTPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port);
+        HTTPServer(const SEventloop& eventloop, const std::string& ip, const unsigned& port);
         ~HTTPServer() override = default;
 
     private:

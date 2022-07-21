@@ -9,10 +9,10 @@
 
 namespace app {
 
-HTTPServer::HTTPServer(const SEventloop &eventloop, const std::string &ip, const unsigned &port) : TCPServer(eventloop, ip, port) {
-    acceptor_->SetNewConnectionCallback([&](int sockfd, const net::Address &address) {
+HTTPServer::HTTPServer(const SEventloop& eventloop, const std::string& ip, const unsigned& port) : TCPServer(eventloop, ip, port) {
+    acceptor_->SetNewConnectionCallback([&](int sockfd, const net::Address& address) {
         auto connection = std::make_shared<net::TCPConnection>(subEventloops_[sockfd % threadpoolSize_], sockfd, true);
-        connection->SetReadCallback([&](const STCPConnection &connection) {
+        connection->SetReadCallback([&](const STCPConnection& connection) {
             std::vector<std::string> header(3, "");
             auto request = connection->Recv();
             int index = 0;
@@ -39,7 +39,7 @@ HTTPServer::HTTPServer(const SEventloop &eventloop, const std::string &ip, const
             connection->Send();
             connection->HandleClose(connection);
         });
-        connection->SetCloseCallback([&](const STCPConnection &connection) {
+        connection->SetCloseCallback([&](const STCPConnection& connection) {
             connection_.Erase(connection->GetFd());
         });
         connection->SetAddress(address);
