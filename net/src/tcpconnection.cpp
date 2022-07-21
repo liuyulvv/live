@@ -6,6 +6,7 @@
  */
 
 #include "tcpconnection.hpp"
+#include <cstring>
 #include <unistd.h>
 
 namespace net {

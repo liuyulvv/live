@@ -8,6 +8,7 @@
 #include "tcpsocket.hpp"
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <cassert>
 #include <fcntl.h>
 #include <unistd.h>
 

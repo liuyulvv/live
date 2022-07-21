@@ -6,6 +6,7 @@
  */
 
 #include "tcpacceptor.hpp"
+#include <cassert>
 
 namespace net {
 

@@ -11,6 +11,9 @@
 #ifdef __APPLE__
 #include <sys/event.h>
 #endif
+#ifdef __linux__
+#include <sys/epoll.h>
+#endif
 #include "tcpchannel.hpp"
 
 namespace event {
@@ -29,6 +32,9 @@ class Poller {
         int fd_ = -1;
 #ifdef __APPLE__
         struct kevent* event_ = nullptr;
+#endif
+#ifdef __linux__
+        struct epoll_event* event_ = nullptr;
 #endif
 };
 
